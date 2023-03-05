@@ -28,11 +28,6 @@
         <property name="currentText">
          <string/>
         </property>
-        <item>
-         <property name="text">
-          <string/>
-         </property>
-        </item>
        </widget>
       </item>
       <item>

@@ -15,5 +15,5 @@ python ParserVendorCode.py
 
 ## Build exe
 ```commandline
-pyinstaller --onefile --windowed  --name "ParserVendorCode"  --noconsole -y ParserVendorCode.py
+pyinstaller --onefile --windowed  --name "ParserVendorCode" --add-data "sqlite;sqlite" --noconsole -y ParserVendorCode.py
 ```
