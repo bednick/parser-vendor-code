@@ -40,6 +40,9 @@ def parse(text: str, template_id: int) -> models.ParsedItems:
     results = []
     for name in pattern.groupindex.keys():
         value = match.group(name)
+        if name not in template_key_by_name:
+            print("name", name, template_key_by_name)
+            print(database.get_template_keys(template_id))
         template_key = template_key_by_name[name]
         pattern = template_key.pattern
         if not value:
