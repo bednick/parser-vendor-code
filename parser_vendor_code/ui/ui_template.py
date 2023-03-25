@@ -14,27 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_DialogUpsertTemplate(object):
     def setupUi(self, DialogUpsertTemplate):
         DialogUpsertTemplate.setObjectName("DialogUpsertTemplate")
-        DialogUpsertTemplate.resize(900, 600)
-        DialogUpsertTemplate.setMinimumSize(QtCore.QSize(900, 600))
+        DialogUpsertTemplate.resize(900, 700)
+        DialogUpsertTemplate.setMinimumSize(QtCore.QSize(900, 700))
         self.verticalLayout = QtWidgets.QVBoxLayout(DialogUpsertTemplate)
         self.verticalLayout.setObjectName("verticalLayout")
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.labelName = QtWidgets.QLabel(DialogUpsertTemplate)
-        self.labelName.setAlignment(
-            QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter
-        )
-        self.labelName.setObjectName("labelName")
-        self.gridLayout.addWidget(self.labelName, 0, 0, 1, 1)
-        self.lineEditName = QtWidgets.QLineEdit(DialogUpsertTemplate)
-        self.lineEditName.setObjectName("lineEditName")
-        self.gridLayout.addWidget(self.lineEditName, 0, 1, 1, 1)
-        self.labelValue = QtWidgets.QLabel(DialogUpsertTemplate)
-        self.labelValue.setAlignment(
-            QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing
-        )
-        self.labelValue.setObjectName("labelValue")
-        self.gridLayout.addWidget(self.labelValue, 3, 0, 1, 1)
         self.textEditValue = QtWidgets.QTextEdit(DialogUpsertTemplate)
         self.textEditValue.setAutoFormatting(QtWidgets.QTextEdit.AutoNone)
         self.textEditValue.setTabChangesFocus(True)
@@ -47,23 +32,49 @@ class Ui_DialogUpsertTemplate(object):
         )
         self.textEditValue.setAcceptRichText(False)
         self.textEditValue.setObjectName("textEditValue")
-        self.gridLayout.addWidget(self.textEditValue, 3, 1, 1, 1)
+        self.gridLayout.addWidget(self.textEditValue, 4, 1, 1, 1)
+        self.lineEditName = QtWidgets.QLineEdit(DialogUpsertTemplate)
+        self.lineEditName.setObjectName("lineEditName")
+        self.gridLayout.addWidget(self.lineEditName, 1, 1, 1, 1)
+        self.labelValue = QtWidgets.QLabel(DialogUpsertTemplate)
+        self.labelValue.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTop | QtCore.Qt.AlignTrailing
+        )
+        self.labelValue.setObjectName("labelValue")
+        self.gridLayout.addWidget(self.labelValue, 4, 0, 1, 1)
+        self.labelName = QtWidgets.QLabel(DialogUpsertTemplate)
+        self.labelName.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter
+        )
+        self.labelName.setObjectName("labelName")
+        self.gridLayout.addWidget(self.labelName, 1, 0, 1, 1)
         self.lineEditMask = QtWidgets.QLineEdit(DialogUpsertTemplate)
         self.lineEditMask.setObjectName("lineEditMask")
-        self.gridLayout.addWidget(self.lineEditMask, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.lineEditMask, 2, 1, 1, 1)
         self.labelMask = QtWidgets.QLabel(DialogUpsertTemplate)
         self.labelMask.setTextFormat(QtCore.Qt.AutoText)
         self.labelMask.setAlignment(
             QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter
         )
         self.labelMask.setObjectName("labelMask")
-        self.gridLayout.addWidget(self.labelMask, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.labelMask, 2, 0, 1, 1)
+        self.labelID = QtWidgets.QLabel(DialogUpsertTemplate)
+        self.labelID.setAlignment(
+            QtCore.Qt.AlignRight | QtCore.Qt.AlignTrailing | QtCore.Qt.AlignVCenter
+        )
+        self.labelID.setObjectName("labelID")
+        self.gridLayout.addWidget(self.labelID, 0, 0, 1, 1)
+        self.lineEditID = QtWidgets.QLineEdit(DialogUpsertTemplate)
+        self.lineEditID.setReadOnly(True)
+        self.lineEditID.setObjectName("lineEditID")
+        self.gridLayout.addWidget(self.lineEditID, 0, 1, 1, 1)
         self.verticalLayout.addLayout(self.gridLayout)
         self.listWidgetTemplateItems = QtWidgets.QListWidget(DialogUpsertTemplate)
         self.listWidgetTemplateItems.setSizeAdjustPolicy(
             QtWidgets.QAbstractScrollArea.AdjustToContents
         )
         self.listWidgetTemplateItems.setMovement(QtWidgets.QListView.Static)
+        self.listWidgetTemplateItems.setSelectionRectVisible(True)
         self.listWidgetTemplateItems.setObjectName("listWidgetTemplateItems")
         self.verticalLayout.addWidget(self.listWidgetTemplateItems)
         self.buttonBox = QtWidgets.QDialogButtonBox(DialogUpsertTemplate)
@@ -86,6 +97,7 @@ class Ui_DialogUpsertTemplate(object):
         DialogUpsertTemplate.setWindowTitle(
             _translate("DialogUpsertTemplate", "upsert template")
         )
-        self.labelName.setText(_translate("DialogUpsertTemplate", "Название:"))
         self.labelValue.setText(_translate("DialogUpsertTemplate", "Шаблон:"))
+        self.labelName.setText(_translate("DialogUpsertTemplate", "Название:"))
         self.labelMask.setText(_translate("DialogUpsertTemplate", "Маска:"))
+        self.labelID.setText(_translate("DialogUpsertTemplate", "ID:"))

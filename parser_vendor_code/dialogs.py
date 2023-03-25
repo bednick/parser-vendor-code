@@ -100,10 +100,10 @@ class WidgetTemplateItem(QtWidgets.QWidget, ui_template_item.Ui_WidgetTemplateIt
         self.comboBoxDirectories.wheelEvent = do_nothing
         for directory in directories.directories:
             self.comboBoxDirectories.addItem(directory.name, directory.directory_id)
+        self.groupBox.setTitle(model.name)
         self.mapper = QtWidgets.QDataWidgetMapper()
         self.mapper.setModel(model)
         self.mapper.setItemDelegate(ComboUserDataDelegate(self))
-        self.mapper.addMapping(self.lineEditName, 1)
         self.mapper.addMapping(self.lineEditDescription, 2)
         self.mapper.addMapping(self.lineEditPattern, 3)
         self.mapper.addMapping(self.lineEditDefault, 4)
@@ -126,6 +126,7 @@ class DialogUpsertTemplate(QtWidgets.QDialog, ui_template.Ui_DialogUpsertTemplat
         self.template = template or models.Template()
         self.mapper = QtWidgets.QDataWidgetMapper()
         self.mapper.setModel(self.template)
+        self.mapper.addMapping(self.lineEditID, 0)
         self.mapper.addMapping(self.lineEditName, 1)
         self.mapper.addMapping(self.lineEditMask, 2)
         self.mapper.addMapping(self.textEditValue, 3, b"plainText")
@@ -136,12 +137,10 @@ class DialogUpsertTemplate(QtWidgets.QDialog, ui_template.Ui_DialogUpsertTemplat
 
     def template_keys_updated(self):
         self.listWidgetTemplateItems.clear()
-        for key_model in self.template.keys:
-            template = WidgetTemplateItem(model=key_model, directories=self.directories)
-            template.setAutoFillBackground(True)
-
+        for index, key_model in enumerate(self.template.keys):
+            widget = WidgetTemplateItem(model=key_model, directories=self.directories)
             item = QtWidgets.QListWidgetItem(self.listWidgetTemplateItems)
-            item.setSizeHint(template.sizeHint())
+            item.setSizeHint(widget.sizeHint())
 
             self.listWidgetTemplateItems.addItem(item)
-            self.listWidgetTemplateItems.setItemWidget(item, template)
+            self.listWidgetTemplateItems.setItemWidget(item, widget)

@@ -18,31 +18,36 @@ class Ui_WidgetTemplateItem(object):
         WidgetTemplateItem.setMinimumSize(QtCore.QSize(600, 150))
         self.gridLayout = QtWidgets.QGridLayout(WidgetTemplateItem)
         self.gridLayout.setObjectName("gridLayout")
+        self.groupBox = QtWidgets.QGroupBox(WidgetTemplateItem)
+        self.groupBox.setTitle("")
+        self.groupBox.setFlat(False)
+        self.groupBox.setCheckable(False)
+        self.groupBox.setObjectName("groupBox")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.groupBox)
+        self.gridLayout_2.setObjectName("gridLayout_2")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
         self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.labelName = QtWidgets.QLabel(WidgetTemplateItem)
-        self.labelName.setAlignment(
-            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter
-        )
-        self.labelName.setObjectName("labelName")
-        self.verticalLayout_4.addWidget(self.labelName)
-        self.lineEditName = QtWidgets.QLineEdit(WidgetTemplateItem)
-        self.lineEditName.setAlignment(QtCore.Qt.AlignCenter)
-        self.lineEditName.setReadOnly(True)
-        self.lineEditName.setObjectName("lineEditName")
-        self.verticalLayout_4.addWidget(self.lineEditName)
-        self.labelDescription = QtWidgets.QLabel(WidgetTemplateItem)
+        self.labelDescription = QtWidgets.QLabel(self.groupBox)
         self.labelDescription.setAlignment(
             QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter
         )
         self.labelDescription.setObjectName("labelDescription")
         self.verticalLayout_4.addWidget(self.labelDescription)
-        self.lineEditDescription = QtWidgets.QLineEdit(WidgetTemplateItem)
-        self.lineEditDescription.setAlignment(QtCore.Qt.AlignCenter)
+        self.lineEditDescription = QtWidgets.QLineEdit(self.groupBox)
+        self.lineEditDescription.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter
+        )
         self.lineEditDescription.setObjectName("lineEditDescription")
         self.verticalLayout_4.addWidget(self.lineEditDescription)
-        self.gridLayout.addLayout(self.verticalLayout_4, 0, 0, 2, 1)
-        self.tabWidget = QtWidgets.QTabWidget(WidgetTemplateItem)
+        self.labelDefaultDirectories = QtWidgets.QLabel(self.groupBox)
+        self.labelDefaultDirectories.setObjectName("labelDefaultDirectories")
+        self.verticalLayout_4.addWidget(self.labelDefaultDirectories)
+        self.lineEditDefault = QtWidgets.QLineEdit(self.groupBox)
+        self.lineEditDefault.setPlaceholderText("")
+        self.lineEditDefault.setObjectName("lineEditDefault")
+        self.verticalLayout_4.addWidget(self.lineEditDefault)
+        self.gridLayout_2.addLayout(self.verticalLayout_4, 0, 0, 2, 1)
+        self.tabWidget = QtWidgets.QTabWidget(self.groupBox)
         self.tabWidget.setObjectName("tabWidget")
         self.tabPattern = QtWidgets.QWidget()
         self.tabPattern.setObjectName("tabPattern")
@@ -66,20 +71,11 @@ class Ui_WidgetTemplateItem(object):
         self.comboBoxDirectories.setItemText(0, "")
         self.verticalLayout.addWidget(self.comboBoxDirectories)
         self.tabWidget.addTab(self.tabDirectories, "")
-        self.gridLayout.addWidget(self.tabWidget, 0, 1, 1, 1)
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.labelDefaultDirectories = QtWidgets.QLabel(WidgetTemplateItem)
-        self.labelDefaultDirectories.setObjectName("labelDefaultDirectories")
-        self.verticalLayout_3.addWidget(self.labelDefaultDirectories)
-        self.lineEditDefault = QtWidgets.QLineEdit(WidgetTemplateItem)
-        self.lineEditDefault.setPlaceholderText("")
-        self.lineEditDefault.setObjectName("lineEditDefault")
-        self.verticalLayout_3.addWidget(self.lineEditDefault)
-        self.gridLayout.addLayout(self.verticalLayout_3, 1, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.tabWidget, 0, 1, 1, 1)
+        self.gridLayout.addWidget(self.groupBox, 0, 0, 1, 1)
 
         self.retranslateUi(WidgetTemplateItem)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(WidgetTemplateItem)
 
     def retranslateUi(self, WidgetTemplateItem):
@@ -87,8 +83,10 @@ class Ui_WidgetTemplateItem(object):
         WidgetTemplateItem.setWindowTitle(
             _translate("WidgetTemplateItem", "template_item")
         )
-        self.labelName.setText(_translate("WidgetTemplateItem", "Название:"))
         self.labelDescription.setText(_translate("WidgetTemplateItem", "Описание:"))
+        self.labelDefaultDirectories.setText(
+            _translate("WidgetTemplateItem", "Значение по умолчанию:")
+        )
         self.lineEditPattern.setPlaceholderText(
             _translate("WidgetTemplateItem", "Значение: {value}")
         )
@@ -99,7 +97,4 @@ class Ui_WidgetTemplateItem(object):
         self.tabWidget.setTabText(
             self.tabWidget.indexOf(self.tabDirectories),
             _translate("WidgetTemplateItem", "Значение каталога"),
-        )
-        self.labelDefaultDirectories.setText(
-            _translate("WidgetTemplateItem", "Значение по умолчанию:")
         )
