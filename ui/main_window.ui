@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>409</height>
+    <width>900</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -20,7 +20,7 @@
    <string>Разбираем артикул</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1">
+   <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -72,10 +72,43 @@
      </layout>
     </item>
     <item>
-     <widget class="QListWidget" name="listWidget">
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
       <property name="selectionMode">
        <enum>QAbstractItemView::SingleSelection</enum>
       </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectItems</enum>
+      </property>
+      <attribute name="horizontalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Название</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ключ</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Значение</string>
+       </property>
+      </column>
      </widget>
     </item>
    </layout>
@@ -85,44 +118,45 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>550</width>
+     <width>900</width>
      <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="separator"/>
-    <addaction name="actionQuet"/>
-   </widget>
-   <widget class="QMenu" name="menuSetting">
-    <property name="title">
-     <string>Setting</string>
+     <string>Файл</string>
     </property>
     <addaction name="actionTemplates"/>
     <addaction name="actionDirectories"/>
+    <addaction name="separator"/>
+    <addaction name="actionLocalPath"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuet"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuSetting"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionQuet">
    <property name="text">
-    <string>Quit</string>
+    <string>Выход</string>
    </property>
   </action>
   <action name="actionTemplates">
    <property name="text">
-    <string>Templates</string>
+    <string>Шаблоны</string>
    </property>
   </action>
   <action name="actionDirectories">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
-    <string>Directories</string>
+    <string>Каталоги/Справочники</string>
+   </property>
+  </action>
+  <action name="actionLocalPath">
+   <property name="text">
+    <string>Локальные настройки</string>
    </property>
   </action>
  </widget>

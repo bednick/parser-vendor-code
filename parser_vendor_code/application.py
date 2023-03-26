@@ -18,9 +18,61 @@ class MainWindow(QtWidgets.QMainWindow, ui_main_window.Ui_MainWindow):
 
         self.pushButtonParse.clicked.connect(self.parse)
         self.actionTemplates.triggered.connect(self.get_all_templates)
+        self.actionDirectories.triggered.connect(self.get_all_directories)
+        self.actionLocalPath.triggered.connect(utils.open_localdir)
         self.comboBox.currentIndexChanged.connect(self.on_combobox_changed)
         self.checkBoxAuto.stateChanged.connect(self.on_checkbox_changed)
         self.upsert_combobox()
+
+    def parse(self):
+        text = utils.normalize(self.lineEditInput.text())
+        logger.info(f"Start text={text}")
+        self.statusbar.showMessage("")
+        self.tableWidget.clear()
+        self.tableWidget.setRowCount(0)
+        if not text:
+            return
+
+        if self.checkBoxAuto.isChecked():
+            combobox_indexes = tuple(range(self.comboBox.count()))
+        else:
+            combobox_indexes = (self.comboBox.currentIndex(),)
+
+        results = None
+        for combobox_index in combobox_indexes:
+            template_id = self.comboBox.itemData(combobox_index)
+            template = database.get_template(template_id)
+            try:
+                results = vendors.parse(template=template, text=text)
+            except vendors.ErrorParse:
+                logger.warning(f"Template {template_id} not parsed {text}")
+                continue
+            except Exception:
+                logger.exception(f"Error parse template_id={template_id}, text={text}")
+                continue
+            if results:
+                logger.info(f"Selected {combobox_index} index")
+                self.comboBox.setCurrentIndex(combobox_index)
+                self.statusbar.showMessage(
+                    f"Строка распаршена с помощью шаблона '{template.name}'"
+                )
+                self.tableWidget.setRowCount(len(results))
+                for row, result in enumerate(results):
+                    self.tableWidget.setItem(
+                        row, 0, QtWidgets.QTableWidgetItem(result.description)
+                    )
+                    self.tableWidget.setItem(
+                        row, 1, QtWidgets.QTableWidgetItem(result.raw_value)
+                    )
+                    self.tableWidget.setItem(
+                        row, 2, QtWidgets.QTableWidgetItem(result.parsed_value)
+                    )
+
+                self.tableWidget.resizeColumnsToContents()
+                break
+
+        if not results:
+            self.statusbar.showMessage("Строку не удалось распарсить")
 
     def upsert_combobox(self):
         index = self.comboBox.currentIndex()
@@ -30,55 +82,17 @@ class MainWindow(QtWidgets.QMainWindow, ui_main_window.Ui_MainWindow):
         if index >= 0:
             self.comboBox.setCurrentIndex(index)
 
-    def parse(self):
-        self.statusbar.showMessage("")
-        text = utils.normalize(self.lineEditInput.text())
-        logger.info(f"Start text={text}")
-        self.listWidget.clear()
-
-        if self.checkBoxAuto.isChecked():
-            combobox_indexes = tuple(range(self.comboBox.count()))
-        else:
-            combobox_indexes = (self.comboBox.currentIndex(),)
-
-        results = None
-        errors = []
-        for combobox_index in combobox_indexes:
-            template_id = self.comboBox.itemData(combobox_index)
-            template = database.get_template(template_id)
-            try:
-                results = vendors.parse(template=template, text=text)
-            except vendors.ErrorParse:
-                errors.append(f"Шаблон '{template.name}' не распарсил строку")
-                logger.warning(f"Template {template_id} not parsed {text}")
-                continue
-            except Exception as exc:
-                logger.exception(f"Error parse template_id={template_id}, text={text}")
-                errors.append(f"Непредвиденная ошибка: {exc}")
-                continue
-            if results:
-                logger.info(f"Selected {combobox_index} index")
-                self.comboBox.setCurrentIndex(combobox_index)
-                self.statusbar.showMessage(
-                    f"Строка распаршена с помощью шаблона '{template.name}'"
-                )
-                for result in results:
-                    widget_item = QtWidgets.QListWidgetItem(
-                        f"{result.raw_value or ''}\t{result.parsed_value}"
-                    )
-                    self.listWidget.addItem(widget_item)
-                break
-
-        if not results and errors:
-            self.listWidget.addItem(QtWidgets.QListWidgetItem("\n".join(errors)))
-            self.statusbar.showMessage("Строку не удалось распарсить")
-
     def get_all_templates(self):
         directories = database.get_directories()
         dialog = dialogs.DialogTemplates(self, directories=directories)
         if dialog.exec():
             pass
         self.upsert_combobox()
+
+    def get_all_directories(self):
+        dialog = dialogs.DialogDirectories(self)
+        if dialog.exec():
+            pass
 
     def on_combobox_changed(self, value):
         if value < 0:

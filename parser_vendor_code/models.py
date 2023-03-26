@@ -10,17 +10,47 @@ from parser_vendor_code import ulid
 logger = logging.getLogger(__name__)
 
 
-@dataclasses.dataclass()
-class Directory:
-    directory_id: int
-    name: str
+class Directory(QtGui.QStandardItemModel):
+    def __init__(self, directory_id: Optional[str] = None, name: str = ""):
+        super().__init__()
+        self.appendRow(
+            (
+                QtGui.QStandardItem(str(directory_id or ulid.ulid())),
+                QtGui.QStandardItem(name),
+            )
+        )
+
+    @property
+    def directory_id(self) -> str:
+        return self.data(self.index(0, 0))
+
+    @property
+    def name(self) -> str:
+        return self.data(self.index(0, 1))
 
 
-@dataclasses.dataclass()
-class DirectoryValue:
-    directory_id: int
-    key: str
-    value: str
+class DirectoryValue(QtGui.QStandardItemModel):
+    def __init__(self, directory_id: str, key: str = "", value: str = ""):
+        super().__init__()
+        self.appendRow(
+            (
+                QtGui.QStandardItem(directory_id),
+                QtGui.QStandardItem(key),
+                QtGui.QStandardItem(value),
+            )
+        )
+
+    @property
+    def directory_id(self) -> str:
+        return self.data(self.index(0, 0))
+
+    @property
+    def key(self) -> str:
+        return self.data(self.index(0, 1))
+
+    @property
+    def value(self) -> str:
+        return self.data(self.index(0, 2))
 
 
 class Directories(QtCore.QAbstractTableModel):

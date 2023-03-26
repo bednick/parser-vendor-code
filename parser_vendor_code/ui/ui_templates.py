@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_DialogTemplates(object):
     def setupUi(self, DialogTemplates):
         DialogTemplates.setObjectName("DialogTemplates")
-        DialogTemplates.resize(1222, 459)
+        DialogTemplates.resize(1254, 459)
         DialogTemplates.setBaseSize(QtCore.QSize(1200, 400))
         self.verticalLayout = QtWidgets.QVBoxLayout(DialogTemplates)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -39,6 +39,10 @@ class Ui_DialogTemplates(object):
         self.pushButtonNew = QtWidgets.QPushButton(DialogTemplates)
         self.pushButtonNew.setObjectName("pushButtonNew")
         self.horizontalLayout.addWidget(self.pushButtonNew)
+        self.pushButtonDelete = QtWidgets.QPushButton(DialogTemplates)
+        self.pushButtonDelete.setEnabled(False)
+        self.pushButtonDelete.setObjectName("pushButtonDelete")
+        self.horizontalLayout.addWidget(self.pushButtonDelete)
         self.buttonBox = QtWidgets.QDialogButtonBox(DialogTemplates)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
@@ -52,4 +56,5 @@ class Ui_DialogTemplates(object):
     def retranslateUi(self, DialogTemplates):
         _translate = QtCore.QCoreApplication.translate
         DialogTemplates.setWindowTitle(_translate("DialogTemplates", "Templates"))
-        self.pushButtonNew.setText(_translate("DialogTemplates", "New"))
+        self.pushButtonNew.setText(_translate("DialogTemplates", "NEW"))
+        self.pushButtonDelete.setText(_translate("DialogTemplates", "DELETE"))

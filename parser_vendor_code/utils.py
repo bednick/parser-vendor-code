@@ -1,5 +1,12 @@
 import logging
+import os
 import pathlib
+import subprocess
+
+FILEBROWSER_PATH = pathlib.Path(os.getenv("WINDIR")) / "explorer.exe"
+LOCALDIR_PATH = pathlib.Path.home() / ".parser-vendor-code"
+DATABASE_PATH = LOCALDIR_PATH / "parser-vendor-code.sqlite"
+SCRIPT_PATH = pathlib.Path(__file__).parent.parent / "sqlite"
 
 RU_to_EN = {
     "Е": "E",
@@ -29,3 +36,7 @@ def configure_logging():
     logging.basicConfig(
         filename=str(file.absolute()), encoding="utf-8", level=logging.DEBUG
     )
+
+
+def open_localdir():
+    subprocess.run([FILEBROWSER_PATH.absolute(), str(LOCALDIR_PATH.absolute())])
